@@ -1,7 +1,19 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"log"
+	"net/http"
+)
 
 func main() {
-	fmt.Println("Hello world")
+	fs := http.FileServer(http.Dir("../frontend/dist/"))
+	http.Handle("/", fs)
+
+	printUsage("C:/")
+
+	fmt.Println("Server listening on port 3000")
+	log.Panic(
+		http.ListenAndServe(":3000", nil),
+	)
 }
