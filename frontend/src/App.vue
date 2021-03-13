@@ -1,5 +1,6 @@
 <template>
   <div>{{ avaliablespace }}</div>
+  <div>{{ envVar }} Hello</div>
 </template>
 
 <script>
@@ -11,16 +12,19 @@ export default {
   data() {
     return {
       avaliablespace: "Hello",
+      envVar: "Test",
     };
   },
   created() {
+    this.envVar = process.env.VUE_APP_IP;
+  },
+  mounted() {
     this.makeWebsiteThumbnail();
   },
   methods: {
     makeWebsiteThumbnail() {
       axios
-        .post("http://localhost:3000/api/avaliablespace", {
-        })
+        .post("http://" + this.envVar + ":3000/api/avaliablespace", {})
         .then((response) => {
           this.avaliablespace = response.data.avaliablespace;
         })
