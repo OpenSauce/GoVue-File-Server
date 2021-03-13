@@ -9,4 +9,5 @@ cd ..
 echo "Running..."
 cd main
 go build
-./main & disown
+./main & 
+disown
