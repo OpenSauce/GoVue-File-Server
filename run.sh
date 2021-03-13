@@ -1,5 +1,7 @@
 #!bin/bash
 
+git pull
+
 echo "Building Vue frontend..."
 cd frontend
 npm install
