@@ -1,6 +1,5 @@
 <template>
   <div>{{ avaliablespace }}</div>
-  <div>{{ envVar }} Hello</div>
 </template>
 
 <script>
