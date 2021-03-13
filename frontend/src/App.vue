@@ -1,5 +1,7 @@
 <template>
   <div>{{ avaliablespace }}</div>
+  <div>{{ freeSpace }}</div>
+  <div>{{ totalSpace }}</div>
 </template>
 
 <script>
@@ -11,6 +13,8 @@ export default {
   data() {
     return {
       avaliablespace: "Hello",
+      freeSpace: "",
+      totalSpace: "",
       envVar: "Test",
     };
   },
@@ -26,6 +30,8 @@ export default {
         .post("http://" + this.envVar + ":3000/api/avaliablespace", {})
         .then((response) => {
           this.avaliablespace = response.data.avaliablespace;
+          this.freeSpace = response.data.freeSpace;
+          this.totalSpace = response.data.totalSpace;
         })
         .catch((error) => {
           window.alert(`The API returned an error: ${error}`);

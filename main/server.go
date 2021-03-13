@@ -18,22 +18,15 @@ func main() {
 	)
 }
 
-// type thumbnailRequest struct {
-// }
-
 func avaliablespaceHandler(w http.ResponseWriter, r *http.Request) {
 	enableCors(&w)
-	// var decoded thumbnailRequest
 
-	// // Try to decode the request into the thumbnailRequest struct.
-	// err := json.NewDecoder(r.Body).Decode(&decoded)
-	// if err != nil {
-	// 	http.Error(w, err.Error(), http.StatusBadRequest)
-	// 	return
-	// }
+	stats := GetHDDStats("/")
 
-	fmt.Printf("Recieved the message %f ", printUsage("/"))
-	fmt.Fprintf(w, `{ "avaliablespace": "%f" }`, printUsage("/"))
+	fmt.Printf("Recieved the message %f ", GetHDDStats("/").Percentage)
+	fmt.Fprintf(w, `{ "avaliablespace": "%f",
+	"totalSpace": "%s",
+	"freeSpace": "%s" }`, stats.Percentage, stats.TotalSpace , stats.FreeSpace)
 }
 
 func enableCors(w *http.ResponseWriter) {
