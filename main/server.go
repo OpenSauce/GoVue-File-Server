@@ -12,7 +12,6 @@ func main() {
 	fs := http.FileServer(http.Dir("../frontend/dist/"))
 	http.Handle("/", fs)
 
-
 	fmt.Println("Server listening on port 3000")
 	log.Panic(
 		http.ListenAndServe(":3000", nil),
@@ -23,6 +22,7 @@ func main() {
 // }
 
 func avaliablespaceHandler(w http.ResponseWriter, r *http.Request) {
+	enableCors(&w)
 	// var decoded thumbnailRequest
 
 	// // Try to decode the request into the thumbnailRequest struct.
@@ -34,4 +34,8 @@ func avaliablespaceHandler(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Printf("Recieved the message %f ", printUsage("/"))
 	fmt.Fprintf(w, `{ "avaliablespace": "%f" }`, printUsage("/"))
+}
+
+func enableCors(w *http.ResponseWriter) {
+	(*w).Header().Set("Access-Control-Allow-Origin", "*")
 }
