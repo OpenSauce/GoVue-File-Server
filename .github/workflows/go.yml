@@ -15,3 +15,5 @@ jobs:
 
     - name: Build
       run: sh run.sh
+      env:
+        VUE_APP_IP: ${{ secrets.VUE_APP_IP }}
