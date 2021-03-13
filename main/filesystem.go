@@ -7,10 +7,10 @@ import (
 	"github.com/minio/minio/pkg/disk"
 )
 
-func printUsage(path string) error {
+func printUsage(path string) float64 {
 	di, err := disk.GetInfo(path)
 	if err != nil {
-		return err
+		
 	}
 	percentage := (float64(di.Total-di.Free)/float64(di.Total))*100
 	fmt.Printf("%s of %s disk space used (%0.2f%%)\n", 
@@ -18,5 +18,5 @@ func printUsage(path string) error {
 		humanize.Bytes(di.Total), 
 		percentage,
 	)
-	return nil
+	return 100 - percentage
 }

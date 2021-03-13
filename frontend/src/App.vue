@@ -1,17 +1,35 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>{{ avaliablespace }}</div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import axios from "axios";
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+  name: "App",
+  components: {},
+  data() {
+    return {
+      avaliablespace: "Hello",
+    };
+  },
+  created() {
+    this.makeWebsiteThumbnail();
+  },
+  methods: {
+    makeWebsiteThumbnail() {
+      axios
+        .post("http://localhost:3000/api/avaliablespace", {
+        })
+        .then((response) => {
+          this.avaliablespace = response.data.avaliablespace;
+        })
+        .catch((error) => {
+          window.alert(`The API returned an error: ${error}`);
+        });
+    },
+  },
+};
 </script>
 
 <style>
