@@ -1,6 +1,5 @@
 #!bin/bash
 
-
 echo "Building Vue frontend..."
 cd frontend
 npm install
@@ -10,4 +9,4 @@ cd ..
 echo "Running..."
 cd main
 go build
-./main &
+./main
