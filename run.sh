@@ -1,7 +1,5 @@
 #!bin/bash
 
-echo "Building Go server..."
-go build main/
 
 echo "Building Vue frontend..."
 cd frontend
@@ -10,4 +8,5 @@ npm run build
 cd ..
 
 echo "Running..."
-go run main/server.go
+go build ./main
+./main/main
