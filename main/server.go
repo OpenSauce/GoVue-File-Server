@@ -32,6 +32,6 @@ func avaliablespaceHandler(w http.ResponseWriter, r *http.Request) {
 	// 	return
 	// }
 
-	fmt.Printf("Recieved the message %f ", printUsage("C:/"))
-	fmt.Fprintf(w, `{ "avaliablespace": "%f" }`, printUsage("C:/"))
+	fmt.Printf("Recieved the message %f ", printUsage("/"))
+	fmt.Fprintf(w, `{ "avaliablespace": "%f" }`, printUsage("/"))
 }

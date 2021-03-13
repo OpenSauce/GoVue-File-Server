@@ -8,5 +8,6 @@ npm run build
 cd ..
 
 echo "Running..."
-go build ./main
-./main/main
+cd main
+go build
+./main
