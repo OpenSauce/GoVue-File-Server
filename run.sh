@@ -10,4 +10,3 @@ echo "Running..."
 cd main
 go build
 ./main & 
-disown
