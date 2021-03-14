@@ -26,7 +26,8 @@ func avaliablespaceHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("Recieved the message %f ", GetHDDStats("/").Percentage)
 	fmt.Fprintf(w, `{ "avaliablespace": "%f",
 	"totalSpace": "%s",
-	"freeSpace": "%s" }`, stats.Percentage, stats.TotalSpace , stats.FreeSpace)
+	"freeSpace": "%s",
+	"pcName": "%s" }`, stats.Percentage, stats.TotalSpace , stats.FreeSpace, GetHostname())
 }
 
 func enableCors(w *http.ResponseWriter) {

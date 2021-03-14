@@ -1,4 +1,5 @@
 <template>
+  <div>{{ pcName }}</div>
   <div>{{ avaliablespace }}</div>
   <div>{{ freeSpace }}</div>
   <div>{{ totalSpace }}</div>
@@ -15,6 +16,7 @@ export default {
       avaliablespace: "Hello",
       freeSpace: "",
       totalSpace: "",
+      pcName: "",
       envVar: "Test",
     };
   },
@@ -32,6 +34,7 @@ export default {
           this.avaliablespace = response.data.avaliablespace;
           this.freeSpace = response.data.freeSpace;
           this.totalSpace = response.data.totalSpace;
+          this.pcName = response.data.pcName;
         })
         .catch((error) => {
           window.alert(`The API returned an error: ${error}`);
