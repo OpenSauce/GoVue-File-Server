@@ -1,12 +1,12 @@
 package main
 
 import (
-	"bytes"
 	"errors"
 	"fmt"
 	"os"
 	"os/exec"
 	"runtime"
+	"strings"
 
 	humanize "github.com/dustin/go-humanize"
 	"github.com/minio/minio/pkg/disk"
@@ -51,8 +51,10 @@ func ExecuteCommand(command string) (string, error) {
 		if err != nil {
 			return "", err
 		}
-		
-		output := string(bytes.Replace(out, []byte("\n"), []byte(" "), -1))
+
+		//output := string(bytes.Replace(out, []byte("\n"), []byte(" "), -1))
+		output := string(out[:])
+		output = strings.Replace(output, `\n`, "\n", -1)
 		fmt.Println(output)
 		return output, nil
 	} else {
