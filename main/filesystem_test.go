@@ -11,7 +11,19 @@ func TestGetHostname(t *testing.T) {
 	}
 }
 
-func Test1(t *testing.T) {
+func TestHDDStats(t *testing.T) {
 	t.Helper()
 	GetHDDStats("/")
+}
+
+func TestCommandExec(t *testing.T) {
+	t.Helper()
+
+	got, err := ExecuteCommand("whoami")
+	want := "pi"
+	if err != nil {
+		if got != want {
+			t.Errorf("got %q want %q", got, want)
+		}
+	}
 }
