@@ -46,7 +46,7 @@ type error interface {
 
 func ExecuteCommand(command string) (string, error) {
 	if CanRunCommands() {
-		out, err := exec.Command(command).Output()
+		out, err := exec.Command("bash", "-c", command).Output()
 		if err != nil {
 			return "", err
 		}
