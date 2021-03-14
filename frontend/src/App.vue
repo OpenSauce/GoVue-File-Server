@@ -12,9 +12,7 @@
   >
     <span class="info-item"> Server Name: {{ pcName }} </span>
     <span class="info-item">{{ freeSpace }}/{{ totalSpace }}</span>
-    <span class="info-item"
-      >{{ percentageAvaliable }}</span
-    >
+    <span class="info-item">{{ percentageAvaliable }}</span>
   </div>
   <div class="row">
     <div class="column side" style="display: flex; flex-direction:column;">
@@ -52,20 +50,20 @@ export default {
     percentageAvaliable() {
       return this.avaliablespace + "%";
     },
-    methods: {
-      makeWebsiteThumbnail() {
-        axios
-          .post("http://" + this.envVar + ":3000/api/avaliablespace", {})
-          .then((response) => {
-            this.avaliablespace = response.data.avaliablespace;
-            this.freeSpace = response.data.freeSpace;
-            this.totalSpace = response.data.totalSpace;
-            this.pcName = response.data.pcName;
-          })
-          .catch((error) => {
-            window.alert(`The API returned an error: ${error}`);
-          });
-      },
+  },
+  methods: {
+    makeWebsiteThumbnail() {
+      axios
+        .post("http://" + this.envVar + ":3000/api/avaliablespace", {})
+        .then((response) => {
+          this.avaliablespace = response.data.avaliablespace;
+          this.freeSpace = response.data.freeSpace;
+          this.totalSpace = response.data.totalSpace;
+          this.pcName = response.data.pcName;
+        })
+        .catch((error) => {
+          window.alert(`The API returned an error: ${error}`);
+        });
     },
   },
 };
