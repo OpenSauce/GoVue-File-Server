@@ -12,9 +12,9 @@ func main() {
 	fs := http.FileServer(http.Dir("../frontend/dist/"))
 	http.Handle("/", fs)
 
-	fmt.Println("Server listening on port 3000")
+	fmt.Println("Server listening on port 80")
 	log.Panic(
-		http.ListenAndServe(":3000", nil),
+		http.ListenAndServe(":80", nil),
 	)
 }
 

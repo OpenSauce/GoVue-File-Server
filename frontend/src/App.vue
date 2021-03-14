@@ -54,7 +54,7 @@ export default {
   methods: {
     makeWebsiteThumbnail() {
       axios
-        .post("http://" + this.envVar + ":3000/api/avaliablespace", {})
+        .post("http://" + this.envVar + ":80/api/avaliablespace", {})
         .then((response) => {
           this.avaliablespace = response.data.avaliablespace;
           this.freeSpace = response.data.freeSpace;
