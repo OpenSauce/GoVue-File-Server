@@ -20,7 +20,7 @@
       <span class="menu-item h6">Settings</span>
     </div>
     <div class="column.middle">
-      <div style="content-item">Hello</div>
+      <div class="content-item">Hello</div>
     </div>
   </div>
 </template>
@@ -102,7 +102,7 @@ body {
   background-color: #131313;
   color: white;
   height: 100px;
-  word-spacing:20px;
+  word-spacing: 20px;
 }
 
 .start {
@@ -128,6 +128,7 @@ body {
 
 .menu-item:hover {
   background-color: #848484;
+  cursor: pointer;
 }
 
 /* Create three equal columns that floats next to each other */
@@ -147,6 +148,9 @@ body {
 }
 
 .content-item {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #e7e7e7;
 }
 
 /* Clear floats after the columns */
@@ -155,6 +159,17 @@ body {
   content: "";
   display: table;
   clear: both;
+}
+
+/* Responsive layout - makes the three columns stack on top of each other instead of next to each other on smaller screens (600px wide or less) */
+@media screen and (max-width: 1200px) {
+  .column.side {
+    width: 33%;
+  }
+
+  .column.middle {
+    width: 67%;
+  }
 }
 
 /* Responsive layout - makes the three columns stack on top of each other instead of next to each other on smaller screens (600px wide or less) */
