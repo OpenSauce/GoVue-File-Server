@@ -12,7 +12,7 @@
   >
     <span class="info-item"> Server Name: {{ pcName }} </span>
     <span class="info-item">{{ freeSpace }}/{{ totalSpace }}</span>
-    <span class="info-item">{{ percentageAvaliable }}</span>
+    <span class="info-item">{{ percentageAvaliable }}%</span>
   </div>
   <div class="row">
     <div class="column side" style="display: flex; flex-direction:column;">
@@ -48,7 +48,7 @@ export default {
   },
   computed: {
     percentageAvaliable() {
-      return this.avaliablespace + "%";
+      return parseFloat(this.avaliablespace).toFixed(2);
     },
   },
   methods: {
@@ -102,6 +102,7 @@ body {
   background-color: #131313;
   color: white;
   height: 100px;
+  word-spacing:20px;
 }
 
 .start {
@@ -115,7 +116,7 @@ body {
 }
 
 .info-item {
-  padding-right: 20px;
+  padding-right: 40px;
 }
 
 .menu-item {
