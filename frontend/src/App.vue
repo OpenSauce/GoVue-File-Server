@@ -1,37 +1,29 @@
 <template>
   <div
-    class="header h1 start"
+    class="header-local h1 startlocal"
     style="display:flex; justify-content: flex-start; align-items: center;"
   >
     GoVue File Server
   </div>
 
   <div
-    class="info-pane start"
+    class="info-pane startlocal"
     style="display:flex; justify-content: flex-start; align-items: center;"
   >
     <span class="info-item"> Server Name: {{ pcName }} </span>
     <span class="info-item">{{ freeSpace }}/{{ totalSpace }}</span>
     <span class="info-item">{{ percentageAvaliable }}%</span>
   </div>
-  <div class="row">
+  <div class="row2">
     <div class="column side" style="display: flex; flex-direction:column;">
       <span class="menu-item h6">Files</span>
       <span class="menu-item h6">Settings</span>
     </div>
     <div class="column.middle">
       <div class="content">
-        <span class="content-item"
-          ><p>
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum."
-          </p></span
-        >
+        <span class="content-item">
+          <ExecuteCommand />
+        </span>
         <span class="content-item"
           ><p>
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -78,10 +70,11 @@
 
 <script>
 import axios from "axios";
+import ExecuteCommand from "./components/ExecuteCommand.vue";
 
 export default {
   name: "App",
-  components: {},
+  components: { ExecuteCommand },
   data() {
     return {
       avaliablespace: "80",
@@ -95,7 +88,7 @@ export default {
     this.envVar = process.env.VUE_APP_IP;
   },
   mounted() {
-    // this.makeWebsiteThumbnail();
+    this.makeWebsiteThumbnail();
   },
   computed: {
     percentageAvaliable() {
@@ -131,9 +124,11 @@ h2,
 h3,
 h4,
 h5,
-.h6 {
+.h6,
+h1 {
   font-family: "Oswald", sans-serif;
   text-transform: uppercase;
+  margin: 0 !important;
 }
 
 body {
@@ -147,7 +142,7 @@ body {
   color: #2c3e50;
 }
 
-.header {
+.header-local {
   font-size: 48px;
   padding-left: 20px;
   background-color: #131313;
@@ -156,7 +151,7 @@ body {
   word-spacing: 20px;
 }
 
-.start {
+.startlocal {
   padding-left: 60px;
 }
 
@@ -213,7 +208,7 @@ body {
 }
 
 /* Clear floats after the columns */
-.row:after {
+.row2:after {
   background-color: green;
   content: "";
   display: table;
