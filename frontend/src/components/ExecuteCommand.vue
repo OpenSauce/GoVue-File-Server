@@ -43,7 +43,9 @@ export default {
           command: this.commandToExecute
         })
         .then((response) => {
+          console.log(response.data.output);
           this.result = response.data.output;
+          console.log(response.data.error);
           this.error = response.data.error;
         })
         .catch((error) => {
