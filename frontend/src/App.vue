@@ -1,8 +1,14 @@
 <template>
-  <div>{{ pcName }}</div>
-  <div>{{ avaliablespace }}</div>
-  <div>{{ freeSpace }}</div>
-  <div>{{ totalSpace }}</div>
+  <div class="header" style="display:flex; justify-content: flex-start; align-items: center;">GoVue File Server</div>
+
+  <div
+    class="info-pane"
+    style="display:flex; justify-content: flex-start; align-items: center;"
+  >
+    <span class="menu-item"> Server Name: {{ pcName }} </span>
+    <span class="menu-item">{{ freeSpace }}/{{ totalSpace }}</span>
+    <span class="menu-item">{{ avaliablespace }}</span>
+  </div>
 </template>
 
 <script>
@@ -13,10 +19,10 @@ export default {
   components: {},
   data() {
     return {
-      avaliablespace: "Hello",
-      freeSpace: "",
-      totalSpace: "",
-      pcName: "",
+      avaliablespace: "80%",
+      freeSpace: "8GB",
+      totalSpace: "10GB",
+      pcName: "PC",
       envVar: "Test",
     };
   },
@@ -45,12 +51,35 @@ export default {
 </script>
 
 <style>
+* {
+  margin: 0;
+  padding: 0;
+}
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: Segoe UI, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+}
+
+.header {
+  font-size: 48px;
+  padding-left: 20px;
+  background-color: #131313;
+  color: white;
+  height: 100px;
+}
+
+.info-pane {
+  background-color: #e7e7e7; 
+  height: 50px;
+  border-bottom: solid black 1px;
+}
+
+.menu-item {
+  padding-left: 20px;
+  padding-right: 20px;
 }
 </style>
