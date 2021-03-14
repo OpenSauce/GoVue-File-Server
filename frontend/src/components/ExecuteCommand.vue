@@ -16,20 +16,37 @@
         Execute
       </button>
     </div>
-    <div></div>
+    <div> {{ result }} </div>
   </div>
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "ExecuteCommand",
   data() {
     return {
       commandToExecute: "",
+      result: "",
+      envVar: "Test",
     };
+  },
+  created() {
+    this.envVar = process.env.VUE_APP_IP;
   },
   methods: {
     SendCommand() {
+      axios
+        .post("http://" + this.envVar + ":8080/api/executecommand", {
+          command: this.commandToExecute
+        })
+        .then((response) => {
+          this.result = response.data.output;
+        })
+        .catch((error) => {
+          window.alert(`The API returned an error: ${error}`);
+        });
       this.commandToExecute = "";
     },
   },

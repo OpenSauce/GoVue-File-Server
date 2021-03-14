@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
@@ -8,6 +9,7 @@ import (
 
 func main() {
 	http.HandleFunc("/api/avaliablespace", avaliablespaceHandler)
+	http.HandleFunc("/api/executecommand", executeCommandHandler)
 
 	fs := http.FileServer(http.Dir("../frontend/dist/"))
 	http.Handle("/", fs)
@@ -23,21 +25,37 @@ func avaliablespaceHandler(w http.ResponseWriter, r *http.Request) {
 
 	stats := GetHDDStats("/")
 
-	fmt.Printf("Recieved the message %f ", GetHDDStats("/").Percentage)
+	fmt.Printf("Recieved the message %f \n", GetHDDStats("/").Percentage)
 	fmt.Fprintf(w, `{ "avaliablespace": "%f",
 	"totalSpace": "%s",
 	"freeSpace": "%s",
 	"pcName": "%s" }`, stats.Percentage, stats.TotalSpace , stats.FreeSpace, GetHostname())
 }
 
+type commandRequest struct {
+    Command string `json:"command"`
+}
+
 func executeCommandHandler(w http.ResponseWriter, r *http.Request) {
 	enableCors(&w)
+	var request commandRequest;
 
-	// output,err := ExecuteCommand("whoami")
+	err := json.NewDecoder(r.Body).Decode(&request)
+    if err != nil {
+        http.Error(w, err.Error(), http.StatusBadRequest)
+        return
+    }
 
-	// if(err != nil) {
+	fmt.Printf("Recieved the message %s \n", request.Command)
+	output,err := ExecuteCommand(request.Command)
 
-	// }
+
+	fmt.Printf("Got: %s \n", output)
+	if err != nil {
+
+	} else {
+		fmt.Fprintf(w, `{ "output": "%s" }`, output)
+	}
 }
 
 func enableCors(w *http.ResponseWriter) {
