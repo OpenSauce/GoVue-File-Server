@@ -44,12 +44,7 @@ export default {
     this.envVar = process.env.VUE_APP_IP;
   },
   mounted() {
-    this.makeWebsiteThumbnail();
-  },
-  computed() {
-    percentageAvaliable: function () {
-      return this.avaliablespace.toFixed(2) + "%";
-    }
+    //this.makeWebsiteThumbnail();
   },
   methods: {
     makeWebsiteThumbnail() {
@@ -64,6 +59,11 @@ export default {
         .catch((error) => {
           window.alert(`The API returned an error: ${error}`);
         });
+    },
+    computed: {
+      percentageAvaliable() {
+        return this.avaliablespace.toFixed(2) + "%";
+      },
     },
   },
 };
