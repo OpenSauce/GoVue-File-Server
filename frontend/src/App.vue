@@ -12,7 +12,7 @@
   >
     <span class="info-item"> Server Name: {{ pcName }} </span>
     <span class="info-item">{{ freeSpace }}/{{ totalSpace }}</span>
-    <span class="info-item">{{ avaliablespace }}</span>
+    <span class="info-item">{{ percentageAvaliable }}</span>
   </div>
   <div class="row">
     <div class="column side" style="display: flex; flex-direction:column;">
@@ -46,6 +46,11 @@ export default {
   mounted() {
     this.makeWebsiteThumbnail();
   },
+  computed() {
+    percentageAvaliable: function () {
+      return this.avaliablespace.toFixed(2) + "%";
+    }
+  },
   methods: {
     makeWebsiteThumbnail() {
       axios
@@ -54,7 +59,7 @@ export default {
           this.avaliablespace = response.data.avaliablespace;
           this.freeSpace = response.data.freeSpace;
           this.totalSpace = response.data.totalSpace;
-          this.pcName = response.data.pcName.toFixed(2) + "%";
+          this.pcName = response.data.pcName;
         })
         .catch((error) => {
           window.alert(`The API returned an error: ${error}`);
@@ -116,7 +121,7 @@ body {
 .menu-item {
   display: flex;
   justify-content: center;
-  align-items:center;
+  align-items: center;
   height: 80px;
 }
 
