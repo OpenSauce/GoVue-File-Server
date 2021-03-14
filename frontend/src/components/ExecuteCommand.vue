@@ -16,7 +16,7 @@
         Execute
       </button>
     </div>
-    <div> {{ result }} {{ error }} </div>
+    <div><span style="white-space: pre-line"> {{ result }} {{ error }} </span> </div>
   </div>
 </template>
 
