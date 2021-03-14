@@ -16,7 +16,7 @@
         Execute
       </button>
     </div>
-    <div> {{ result }} </div>
+    <div> {{ result }} {{ error }} </div>
   </div>
 </template>
 
@@ -29,6 +29,7 @@ export default {
     return {
       commandToExecute: "",
       result: "",
+      error: "",
       envVar: "Test",
     };
   },
@@ -43,6 +44,7 @@ export default {
         })
         .then((response) => {
           this.result = response.data.output;
+          this.error = response.data.error;
         })
         .catch((error) => {
           window.alert(`The API returned an error: ${error}`);

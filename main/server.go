@@ -50,12 +50,9 @@ func executeCommandHandler(w http.ResponseWriter, r *http.Request) {
 	output,err := ExecuteCommand(request.Command)
 
 
-	fmt.Printf("Got: %s \n", output)
-	if err != nil {
-
-	} else {
-		fmt.Fprintf(w, `{ "output": "%s" }`, output)
-	}
+	fmt.Printf("Got: %s : %s \n", output, err)
+	fmt.Fprintf(w, `{ "output": "%s",
+	"error": "%s" }`, output, err)
 }
 
 func enableCors(w *http.ResponseWriter) {
