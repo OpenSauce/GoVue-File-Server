@@ -54,7 +54,7 @@ func ExecuteCommand(command string) (string, error) {
 
 		//output := string(bytes.Replace(out, []byte("\n"), []byte(" "), -1))
 		output := string(out[:])
-		output = strings.Replace(output, `\n`, "\n", -1)
+		output = strings.Replace(output, "\n",  `\n`, -1)
 		fmt.Println(output)
 		return output, nil
 	} else {
