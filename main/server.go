@@ -30,6 +30,16 @@ func avaliablespaceHandler(w http.ResponseWriter, r *http.Request) {
 	"pcName": "%s" }`, stats.Percentage, stats.TotalSpace , stats.FreeSpace, GetHostname())
 }
 
+func executeCommandHandler(w http.ResponseWriter, r *http.Request) {
+	enableCors(&w)
+
+	// output,err := ExecuteCommand("whoami")
+
+	// if(err != nil) {
+
+	// }
+}
+
 func enableCors(w *http.ResponseWriter) {
 	(*w).Header().Set("Access-Control-Allow-Origin", "*")
 }

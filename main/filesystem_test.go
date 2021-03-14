@@ -1,6 +1,10 @@
 package main
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
+
 
 func TestGetHostname(t *testing.T) {
 	got := GetHostname()
@@ -21,6 +25,7 @@ func TestCommandExec(t *testing.T) {
 
 	got, err := ExecuteCommand("whoami")
 	want := "pi"
+	fmt.Printf("%s", got)
 	if err != nil {
 		if got != want {
 			t.Errorf("got %q want %q", got, want)

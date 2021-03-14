@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"os"
 	"os/exec"
@@ -39,18 +40,22 @@ func avaliableSpacePercentage(total float64, free float64) float64 {
 	return (float64(free) / float64(total)) * 100
 }
 
+type error interface {
+	Error() string
+}
+
 func ExecuteCommand(command string) (string, error) {
-	output := ""
 	if CanRunCommands() {
-		out, err := exec.Command("ls").Output()
+		out, err := exec.Command(command).Output()
 		if err != nil {
 			return "", err
 		}
-		fmt.Println("Command Successfully Executed")
 		output := string(out[:])
 		fmt.Println(output)
+		return output, nil
+	} else {
+		return "", errors.New("Command can't be ran on this machine")
 	}
-	return output, nil
 }
 
 func CanRunCommands() bool {
