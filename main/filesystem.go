@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"errors"
 	"fmt"
 	"os"
@@ -50,7 +51,8 @@ func ExecuteCommand(command string) (string, error) {
 		if err != nil {
 			return "", err
 		}
-		output := string(out[:])
+		
+		output := string(bytes.Replace(out, []byte("\n"), []byte(" "), -1))
 		fmt.Println(output)
 		return output, nil
 	} else {
