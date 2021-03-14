@@ -29,26 +29,25 @@ func avaliablespaceHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, `{ "avaliablespace": "%f",
 	"totalSpace": "%s",
 	"freeSpace": "%s",
-	"pcName": "%s" }`, stats.Percentage, stats.TotalSpace , stats.FreeSpace, GetHostname())
+	"pcName": "%s" }`, stats.Percentage, stats.TotalSpace, stats.FreeSpace, GetHostname())
 }
 
 type commandRequest struct {
-    Command string `json:"command"`
+	Command string `json:"command"`
 }
 
 func executeCommandHandler(w http.ResponseWriter, r *http.Request) {
 	enableCors(&w)
-	var request commandRequest;
+	var request commandRequest
 
 	err := json.NewDecoder(r.Body).Decode(&request)
-    if err != nil {
-        http.Error(w, err.Error(), http.StatusBadRequest)
-        return
-    }
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
 
 	fmt.Printf("Recieved the message %s \n", request.Command)
-	output,err := ExecuteCommand(request.Command)
-
+	output, err := ExecuteCommand(request.Command)
 
 	fmt.Printf("Got: %s : %s \n", output, err)
 	fmt.Fprintf(w, `{ "output": "%s",

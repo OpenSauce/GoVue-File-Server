@@ -16,7 +16,9 @@
         Execute
       </button>
     </div>
-    <div><span style="white-space: pre-line"> {{ result }} {{ error }} </span> </div>
+    <div>
+      <span style="white-space: pre-line"> {{ result }} {{ error }} </span>
+    </div>
   </div>
 </template>
 
@@ -40,7 +42,7 @@ export default {
     SendCommand() {
       axios
         .post("http://" + this.envVar + ":8080/api/executecommand", {
-          command: this.commandToExecute
+          command: this.commandToExecute,
         })
         .then((response) => {
           console.log(response.data.output);
