@@ -48,10 +48,14 @@ func executeCommandHandler(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Printf("Recieved the message %s \n", request.Command)
 	output, err := ExecuteCommand(request.Command)
+	// formattedErr := ""
+	// if err != nil {
+	// 	formattedErr = 
+	// }
 
 	fmt.Printf("Got: %s : %s \n", output, err)
 	fmt.Fprintf(w, `{ "output": "%s",
-	"error": "%s" }`, output, err)
+	"error": "%s" }`, output, err.Error())
 }
 
 func enableCors(w *http.ResponseWriter) {
