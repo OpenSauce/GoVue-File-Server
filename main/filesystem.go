@@ -41,10 +41,6 @@ func avaliableSpacePercentage(total float64, free float64) float64 {
 	return (float64(free) / float64(total)) * 100
 }
 
-type error interface {
-	Error() string
-}
-
 func ExecuteCommand(command string) (string, error) {
 	if CanRunCommands() {
 		out, err := exec.Command("bash", "-c", command).Output()
@@ -52,10 +48,8 @@ func ExecuteCommand(command string) (string, error) {
 			return "", err
 		}
 
-		//output := string(bytes.Replace(out, []byte("\n"), []byte(" "), -1))
 		output := string(out[:])
 		output = strings.Replace(output, "\n", "\\n", -1)
-		fmt.Println(output)
 		return output, nil
 	} else {
 		return "", errors.New("Command can't be ran on this machine")
@@ -75,6 +69,5 @@ func GetHostname() string {
 	if err != nil {
 		panic(err)
 	}
-
 	return name
 }

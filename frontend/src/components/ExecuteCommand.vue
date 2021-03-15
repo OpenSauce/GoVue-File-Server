@@ -16,8 +16,16 @@
         Execute
       </button>
     </div>
-    <div>
-      <span style="white-space: pre-line"> {{ result }} {{ error }} </span>
+    <div v-if="result" class="container-fluid" style="margin-top:20px;">
+      <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" v-model="result"> </textarea>
+    </div>
+    <div v-if="error" class="container-fluid" style="margin-top:20px;">
+      <textarea
+        class="form-control"
+        id="exampleFormControlTextarea1"
+        rows="3"
+        v-model="error"
+        ></textarea>
     </div>
   </div>
 </template>
