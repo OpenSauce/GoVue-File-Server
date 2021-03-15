@@ -16,16 +16,24 @@
         Execute
       </button>
     </div>
-    <div v-if="result" class="container-fluid" style="margin-top:20px;">
-      <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" v-model="result"> </textarea>
-    </div>
-    <div v-if="error" class="container-fluid" style="margin-top:20px;">
+    <div v-if="result" class="container-fluid output">
+      <h6>Success</h6>
       <textarea
         class="form-control"
-        id="exampleFormControlTextarea1"
-        rows="3"
+        id="successTextArea"
+        rows="4"
+        v-model="result"
+      >
+      </textarea>
+    </div>
+    <div v-if="error" class="container-fluid output">
+      <h6>Error</h6>
+      <textarea
+        class="form-control"
+        id="errorTextArea"
+        rows="4"
         v-model="error"
-        ></textarea>
+      ></textarea>
     </div>
   </div>
 </template>
@@ -67,4 +75,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.output {
+  margin-top: 20px;
+}
+</style>
