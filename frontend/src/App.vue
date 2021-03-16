@@ -16,6 +16,7 @@
   </div>
   <div class="row2">
     <div class="column side" style="display: flex; flex-direction:column;">
+      <span class="menu-item h6">Home</span>
       <span class="menu-item h6">Files</span>
       <span class="menu-item h6">Settings</span>
     </div>
