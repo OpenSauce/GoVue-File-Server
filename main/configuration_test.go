@@ -5,16 +5,14 @@ import (
 	"testing"
 )
 
-
 func TestGetFileListing(t *testing.T) {
 
 	t.Run("Testing create directory", func(t *testing.T) {
-	CreateDirectory("testDir/")
-	
+		CreateDirectory("testDir/")
 
-	if _, err := os.Stat("testDir/"); os.IsNotExist(err) {
-		t.Fail()
-	}
+		if _, err := os.Stat("testDir/"); os.IsNotExist(err) {
+			t.Fail()
+		}
 
 	})
 
