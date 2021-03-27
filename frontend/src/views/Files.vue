@@ -69,7 +69,7 @@ export default {
 
       for (var i = 0; i < this.$refs.file.files.length; i++) {
         let file = this.$refs.file.files[i];
-        formData.append("files[" + i + "]", file);
+        formData.append("multiplefiles", file);
       }
 
       axios
