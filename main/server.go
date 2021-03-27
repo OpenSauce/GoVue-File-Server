@@ -106,7 +106,7 @@ func uploadHandler(w http.ResponseWriter, r *http.Request) {
 		out, err := os.Create("/tmp/" + files[i].Filename)
 
 		if err != nil {
-			fmt.Fprintf(w, "Unable to create the file for writing. Check your write access privilege")
+			fmt.Printf("Unable to create the file for writing. Check your write access privilege")
 			return
 		}
 		defer out.Close()
@@ -118,8 +118,8 @@ func uploadHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		fmt.Fprintf(w, "Files uploaded successfully : ")
-		fmt.Fprintf(w, files[i].Filename+"\n")
+		fmt.Printf("Files uploaded successfully : ")
+		fmt.Printf(files[i].Filename+"\n")
 
 	}
 }
