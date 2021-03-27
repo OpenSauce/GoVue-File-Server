@@ -16,7 +16,7 @@ var (
 	}{
 		{EndpointURL: "/api/avaliablespace", Handler: avaliablespaceHandler},
 		{EndpointURL: "/api/executecommand", Handler: executeCommandHandler},
-		{EndpointURL: "/api/uploadHandler", Handler: uploadHandler},
+		{EndpointURL: "/api/upload", Handler: uploadHandler},
 	}
 )
 
