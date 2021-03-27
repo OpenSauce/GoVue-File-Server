@@ -16,66 +16,21 @@
   </div>
   <div class="row2">
     <div class="column side" style="display: flex; flex-direction:column;">
-      <span class="menu-item h6">Home</span>
-      <span class="menu-item h6">Files</span>
+      <router-link tag="li" to="/"><span class="menu-item h6">Home</span></router-link>
+      <router-link to="/files"><span class="menu-item h6">Files</span></router-link>
       <span class="menu-item h6">Settings</span>
     </div>
     <div class="column.middle">
-      <div class="content">
-        <span class="content-item">
-          <ExecuteCommand />
-        </span>
-        <span class="content-item"
-          ><p>
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum."
-          </p></span
-        >
-        <span class="content-item"
-          ><p>
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum. Sed ut
-            perspiciatis unde omnis iste natus error sit voluptatem accusantium
-            doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo
-            inventore veritatis et quasi architecto beatae vitae dicta sunt
-            explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur
-            aut odit aut fugit, sed quia consequuntur magni dolores eos qui
-            ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui
-            dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed
-            quia non numquam eius modi tempora incidunt ut labore et dolore
-            magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis
-            nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut
-            aliquid ex ea commodi consequatur? Quis autem vel eum iure
-            reprehenderit qui in ea voluptate velit esse quam nihil molestiae
-            consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla
-            pariatur?"
-          </p></span
-        >
-        <span class="content-item">Hello</span>
-        <span class="content-item">Hello</span>
-        <span class="content-item">Hello</span>
-      </div>
+      <router-view />
     </div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
-import ExecuteCommand from "./components/ExecuteCommand.vue";
 
 export default {
   name: "App",
-  components: { ExecuteCommand },
   data() {
     return {
       avaliablespace: "80",
@@ -89,7 +44,7 @@ export default {
     this.envVar = process.env.VUE_APP_IP;
   },
   mounted() {
-    this.makeWebsiteThumbnail();
+    this.getServerStats();
   },
   computed: {
     percentageAvaliable() {
@@ -97,7 +52,7 @@ export default {
     },
   },
   methods: {
-    makeWebsiteThumbnail() {
+    getServerStats() {
       axios
         .post("http://" + this.envVar + ":8080/api/avaliablespace", {})
         .then((response) => {
@@ -131,6 +86,15 @@ h1 {
   text-transform: uppercase;
   margin: 0 !important;
 }
+
+/* a {
+  color: black !important;
+} */
+
+.active {
+  color:black;
+}
+
 
 body {
   font-family: "Segoe UI", serif;
