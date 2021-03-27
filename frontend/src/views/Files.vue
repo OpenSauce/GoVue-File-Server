@@ -55,6 +55,14 @@ import axios from "axios";
 export default {
   name: "Files",
   setup() {},
+    data() {
+    return {
+      envVar: "Test",
+    };
+  },
+  created() {
+    this.envVar = process.env.VUE_APP_IP;
+  },
   methods: {
     submitFiles() {
       let formData = new FormData();
