@@ -3,13 +3,29 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"io"
 	"log"
 	"net/http"
+	"os"
 )
 
+// var (
+// 	names = []APIName{
+// 		Enpoint: "/api/avaliablespace",
+// 		Function: avaliablespaceHandler(),
+// 	},
+// )
+
+// type APIName struct {
+// 	Endpoint string
+// 	Function func()
+// }
+
+//Main execution function of the server.
 func main() {
 	http.HandleFunc("/api/avaliablespace", avaliablespaceHandler)
 	http.HandleFunc("/api/executecommand", executeCommandHandler)
+	http.HandleFunc("/api/uploadHandler", uploadHandler)
 
 	fs := http.FileServer(http.Dir("../frontend/dist/"))
 	http.Handle("/", fs)
@@ -20,6 +36,7 @@ func main() {
 	)
 }
 
+//Endpoint for returning the avaliable space.
 func avaliablespaceHandler(w http.ResponseWriter, r *http.Request) {
 	enableCors(&w)
 
@@ -60,4 +77,47 @@ func executeCommandHandler(w http.ResponseWriter, r *http.Request) {
 
 func enableCors(w *http.ResponseWriter) {
 	(*w).Header().Set("Access-Control-Allow-Origin", "*")
+}
+
+//
+func uploadHandler(w http.ResponseWriter, r *http.Request) {
+
+	err := r.ParseMultipartForm(200000) // grab the multipart form
+	if err != nil {
+		fmt.Fprintln(w, err)
+		return
+	}
+
+	formdata := r.MultipartForm // ok, no problem so far, read the Form data
+
+	//get the *fileheaders
+	files := formdata.File["multiplefiles"] // grab the filenames
+
+	for i, _ := range files { // loop through the files one by one
+		file, err := files[i].Open()
+		if err != nil {
+			fmt.Fprintln(w, err)
+			return
+		}
+		defer file.Close()
+
+		out, err := os.Create("/tmp/" + files[i].Filename)
+
+		if err != nil {
+			fmt.Fprintf(w, "Unable to create the file for writing. Check your write access privilege")
+			return
+		}
+		defer out.Close()
+
+		_, err = io.Copy(out, file) // file not files[i] !
+
+		if err != nil {
+			fmt.Fprintln(w, err)
+			return
+		}
+
+		fmt.Fprintf(w, "Files uploaded successfully : ")
+		fmt.Fprintf(w, files[i].Filename+"\n")
+
+	}
 }
