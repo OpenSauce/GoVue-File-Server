@@ -81,6 +81,7 @@ func enableCors(w *http.ResponseWriter) {
 //Handler for handling the uploading of multiple files
 func uploadHandler(w http.ResponseWriter, r *http.Request) {
 	enableCors(&w)
+	fmt.Printf("Tracer 1")
 
 	err := r.ParseMultipartForm(200000) // grab the multipart form
 	if err != nil {
@@ -95,6 +96,7 @@ func uploadHandler(w http.ResponseWriter, r *http.Request) {
 
 	for i, _ := range files { // loop through the files one by one
 		file, err := files[i].Open()
+		fmt.Printf("Name: %s", files[i].Filename)
 		if err != nil {
 			fmt.Fprintln(w, err)
 			return

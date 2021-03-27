@@ -44,7 +44,7 @@ export default {
     this.envVar = process.env.VUE_APP_IP;
   },
   mounted() {
-    this.getServerStats();
+    //this.getServerStats();
   },
   computed: {
     percentageAvaliable() {
