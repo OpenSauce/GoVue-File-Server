@@ -9,23 +9,22 @@ import (
 	"os"
 )
 
-// var (
-// 	names = []APIName{
-// 		Enpoint: "/api/avaliablespace",
-// 		Function: avaliablespaceHandler(),
-// 	},
-// )
-
-// type APIName struct {
-// 	Endpoint string
-// 	Function func()
-// }
+var (
+	endpointList = []struct {
+		EndpointURL string
+		Handler func(http.ResponseWriter, *http.Request)
+	}{
+		{EndpointURL: "/api/avaliablespace", Handler: avaliablespaceHandler},
+		{EndpointURL: "/api/executecommand", Handler: executeCommandHandler},
+		{EndpointURL: "/api/uploadHandler", Handler: uploadHandler},
+	}
+)
 
 //Main execution function of the server.
 func main() {
-	http.HandleFunc("/api/avaliablespace", avaliablespaceHandler)
-	http.HandleFunc("/api/executecommand", executeCommandHandler)
-	http.HandleFunc("/api/uploadHandler", uploadHandler)
+	for _, endpoint := range endpointList {
+		http.HandleFunc(endpoint.EndpointURL, endpoint.Handler)
+	}
 
 	fs := http.FileServer(http.Dir("../frontend/dist/"))
 	http.Handle("/", fs)
@@ -79,7 +78,7 @@ func enableCors(w *http.ResponseWriter) {
 	(*w).Header().Set("Access-Control-Allow-Origin", "*")
 }
 
-//
+//Handler for handling the uploading of multiple files
 func uploadHandler(w http.ResponseWriter, r *http.Request) {
 
 	err := r.ParseMultipartForm(200000) // grab the multipart form
