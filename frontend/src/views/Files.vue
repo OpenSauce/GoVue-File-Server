@@ -5,11 +5,9 @@
         ><h2>File List</h2>
         <button @click="getFileList()" class="btn btn-primary">Refresh</button>
         <ul id="example-1">
-          <li v-for="item in items" :key="item">
-            {{ item }}
-          </li>
+          <FileDisplay v-for="item in items" :key="item" v-bind:name=item>
+          </FileDisplay>
         </ul>
-        {{ items }}
       </span>
       <span class="content-item">
         <form method="post" action="#" id="" enctype="multipart/form-data" />
@@ -50,8 +48,10 @@
 
 <script>
 import axios from "axios";
+import FileDisplay from '../components/FileDisplay.vue';
 
 export default {
+  components: { FileDisplay },
   name: "Files",
   setup() {},
   data() {
@@ -84,7 +84,7 @@ export default {
     getFileList() {
          axios
         .post("http://" + this.envVar + ":8080/api/getfiles", {})
-        .then((response) => {s
+        .then((response) => {
           console.log(response.data);
           this.items = response.data.files;
         })
