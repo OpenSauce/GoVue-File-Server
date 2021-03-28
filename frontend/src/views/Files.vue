@@ -9,6 +9,7 @@
             {{ item }}
           </li>
         </ul>
+        {{ items }}
       </span>
       <span class="content-item">
         <form method="post" action="#" id="" enctype="multipart/form-data" />
