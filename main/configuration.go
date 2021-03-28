@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"os"
 	"path/filepath"
 )
@@ -21,9 +20,10 @@ func CreateFile() {
 func visit(files *[]string) filepath.WalkFunc {
 	return func(path string, info os.FileInfo, err error) error {
 		if err != nil {
-			log.Fatal(err)
+			fmt.Println("Error on a file")
+		} else {
+			*files = append(*files, path)
 		}
-		*files = append(*files, path)
 		return nil
 	}
 }
