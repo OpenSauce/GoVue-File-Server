@@ -55,9 +55,10 @@ func avaliablespaceHandler(w http.ResponseWriter, r *http.Request) {
 func getFileHandler(w http.ResponseWriter, r *http.Request) {
 	enableCors(&w)
 
-	listOfFiles := GetListOfFiles("/gv-repo/")
+	listOfFiles := GetListOfFiles("gv-repo/")
 	filesJson, _ := json.Marshal(listOfFiles)
 
+	fmt.Printf(`{ "files": "%s" }`,string(filesJson))
 	fmt.Fprintf(w, `{ "files": "%s" }`,string(filesJson))
 }
 
@@ -116,7 +117,7 @@ func uploadHandler(w http.ResponseWriter, r *http.Request) {
 		}
 		defer file.Close()
 
-		out, err := os.Create("/gv-repo/" + files[i].Filename)
+		out, err := os.Create("gv-repo/" + files[i].Filename)
 
 		if err != nil {
 			fmt.Printf("Unable to create the file for writing. Check your write access privilege")
