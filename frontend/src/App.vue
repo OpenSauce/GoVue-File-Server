@@ -87,6 +87,10 @@ h1 {
   margin: 0 !important;
 }
 
+h2 {
+  padding-bottom: 20px;
+}
+
 /* a {
   color: black !important;
 } */

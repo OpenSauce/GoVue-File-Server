@@ -1,25 +1,23 @@
 <template>
   <div>
     <div class="content">
+      <span class="content-item" style="padding-bottom: 20px"
+        ><h2>File List</h2>
+        <button @click="getFileList()" class="btn btn-primary">Refresh</button>
+        <ul id="example-1">
+          <li v-for="item in items" :key="item">
+            {{ item }}
+          </li>
+        </ul>
+      </span>
       <span class="content-item">
         <form method="post" action="#" id="" enctype="multipart/form-data" />
         <div class="form-group files text-center" ref="fileform">
           <input type="file" ref="file" multiple="multiple" />
           <span id="val"></span>
-          <a class="btn" @click="submitFiles()" id="button">Upload Photo</a>
+          <button @click="submitFiles()" class="btn btn-primary"  id="button">Upload Photo</button>
         </div>
       </span>
-      <span class="content-item"
-        ><p>
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum."
-        </p></span
-      >
       <span class="content-item"
         ><p>
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -55,9 +53,10 @@ import axios from "axios";
 export default {
   name: "Files",
   setup() {},
-    data() {
+  data() {
     return {
       envVar: "Test",
+      items: ["TestFile1.txt", "TestFile2.txt"],
     };
   },
   created() {
@@ -80,6 +79,16 @@ export default {
         })
         .then(function() {})
         .catch(function() {});
+    },
+    getFileList() {
+         axios
+        .post("http://" + this.envVar + ":8080/api/getfiles", {})
+        .then((response) => {
+          this.items = response.data.files;
+        })
+        .catch((error) => {
+          window.alert(`The API returned an error: ${error}`);
+        });
     },
   },
 };

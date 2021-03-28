@@ -17,6 +17,7 @@ var (
 		{EndpointURL: "/api/avaliablespace", Handler: avaliablespaceHandler},
 		{EndpointURL: "/api/executecommand", Handler: executeCommandHandler},
 		{EndpointURL: "/api/upload", Handler: uploadHandler},
+		{EndpointURL: "/api/getfiles", Handler: getFileHandler},
 	}
 )
 
@@ -46,6 +47,16 @@ func avaliablespaceHandler(w http.ResponseWriter, r *http.Request) {
 	"totalSpace": "%s",
 	"freeSpace": "%s",
 	"pcName": "%s" }`, stats.Percentage, stats.TotalSpace, stats.FreeSpace, GetHostname())
+}
+
+//Endpoint for returning the list of files.
+func getFileHandler(w http.ResponseWriter, r *http.Request) {
+	enableCors(&w)
+
+	listOfFiles := GetListOfFiles("gv-repo")
+	filesJson, _ := json.Marshal(listOfFiles)
+
+	fmt.Fprintf(w, `{ "files": "%s" }`,string(filesJson))
 }
 
 type commandRequest struct {
@@ -103,7 +114,7 @@ func uploadHandler(w http.ResponseWriter, r *http.Request) {
 		}
 		defer file.Close()
 
-		out, err := os.Create("/tmp/" + files[i].Filename)
+		out, err := os.Create("/gv-repo/" + files[i].Filename)
 
 		if err != nil {
 			fmt.Printf("Unable to create the file for writing. Check your write access privilege")

@@ -1,6 +1,6 @@
 <template>
   <div style="padding-bottom: 20px">
-    <div style="padding-bottom: 20px">
+    <div>
       <h2>Execute Command</h2>
     </div>
     <div class="container-fluid" style="display:flex;">
