@@ -12,7 +12,7 @@ import (
 var (
 	endpointList = []struct {
 		EndpointURL string
-		Handler func(http.ResponseWriter, *http.Request)
+		Handler     func(http.ResponseWriter, *http.Request)
 	}{
 		{EndpointURL: "/api/avaliablespace", Handler: avaliablespaceHandler},
 		{EndpointURL: "/api/executecommand", Handler: executeCommandHandler},
@@ -57,8 +57,8 @@ func getFileHandler(w http.ResponseWriter, r *http.Request) {
 	listOfFiles := GetListOfFiles("/tmp/")
 	filesJson, _ := json.Marshal(listOfFiles)
 
-	fmt.Printf(`{ "files": "%s" }`,string(filesJson))
-	fmt.Fprintf(w, `{ "files": %s }`,string(filesJson))
+	fmt.Printf(`{ "files": "%s" }`, string(filesJson))
+	fmt.Fprintf(w, `{ "files": %s }`, string(filesJson))
 }
 
 type commandRequest struct {
@@ -107,7 +107,7 @@ func uploadHandler(w http.ResponseWriter, r *http.Request) {
 	//get the *fileheaders
 	files := formdata.File["multiplefiles"] // grab the filenames
 
-	for i, _ := range files { // loop through the files one by one
+	for i := range files { // loop through the files one by one
 		file, err := files[i].Open()
 		fmt.Printf("Name: %s", files[i].Filename)
 		if err != nil {
@@ -132,7 +132,7 @@ func uploadHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		fmt.Printf("Files uploaded successfully : ")
-		fmt.Printf(files[i].Filename+"\n")
+		fmt.Printf(files[i].Filename + "\n")
 
 	}
 }
