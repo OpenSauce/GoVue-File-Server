@@ -84,8 +84,8 @@ export default {
     getFileList() {
          axios
         .post("http://" + this.envVar + ":8080/api/getfiles", {})
-        .then((response) => {
-          console.log(response.data.files);
+        .then((response) => {s
+          console.log(response.data);
           this.items = response.data.files;
         })
         .catch((error) => {
