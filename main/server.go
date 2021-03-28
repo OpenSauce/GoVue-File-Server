@@ -58,7 +58,7 @@ func getFileHandler(w http.ResponseWriter, r *http.Request) {
 	filesJson, _ := json.Marshal(listOfFiles)
 
 	fmt.Printf(`{ "files": "%s" }`,string(filesJson))
-	fmt.Fprintf(w, `{ "files": "%s" }`,string(filesJson))
+	fmt.Fprintf(w, `{ "files": %s }`,string(filesJson))
 }
 
 type commandRequest struct {
