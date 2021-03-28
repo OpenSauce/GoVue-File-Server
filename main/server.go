@@ -23,6 +23,8 @@ var (
 
 //Main execution function of the server.
 func main() {
+	CreateDirectory("/gv-repo/")
+
 	for _, endpoint := range endpointList {
 		http.HandleFunc(endpoint.EndpointURL, endpoint.Handler)
 	}
@@ -53,7 +55,7 @@ func avaliablespaceHandler(w http.ResponseWriter, r *http.Request) {
 func getFileHandler(w http.ResponseWriter, r *http.Request) {
 	enableCors(&w)
 
-	listOfFiles := GetListOfFiles("gv-repo")
+	listOfFiles := GetListOfFiles("/gv-repo/")
 	filesJson, _ := json.Marshal(listOfFiles)
 
 	fmt.Fprintf(w, `{ "files": "%s" }`,string(filesJson))
