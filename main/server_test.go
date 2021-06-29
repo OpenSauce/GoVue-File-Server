@@ -13,9 +13,7 @@ func Test_uploadHandler(t *testing.T) {
 	tests := []struct {
 		name string
 		args args
-	}{
-		
-	}
+	}{}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			uploadHandler(tt.args.w, tt.args.r)
