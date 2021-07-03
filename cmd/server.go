@@ -7,6 +7,9 @@ import (
 	"log"
 	"net/http"
 	"os"
+
+	"github.com/OpenSauce/GoVue-File-Server/pkg/configuration"
+	"github.com/OpenSauce/GoVue-File-Server/pkg/filesystem"
 )
 
 var (
@@ -41,20 +44,20 @@ func main() {
 func avaliablespaceHandler(w http.ResponseWriter, r *http.Request) {
 	enableCors(&w)
 
-	stats := GetHDDStats("/")
+	stats := filesystem.GetHDDStats("/")
 
-	fmt.Printf("Recieved the message %f \n", GetHDDStats("/").Percentage)
+	fmt.Printf("Recieved the message %f \n", filesystem.GetHDDStats("/").Percentage)
 	fmt.Fprintf(w, `{ "avaliablespace": "%f",
 	"totalSpace": "%s",
 	"freeSpace": "%s",
-	"pcName": "%s" }`, stats.Percentage, stats.TotalSpace, stats.FreeSpace, GetHostname())
+	"pcName": "%s" }`, stats.Percentage, stats.TotalSpace, stats.FreeSpace, filesystem.GetHostname())
 }
 
 //Endpoint for returning the list of files.
 func getFileHandler(w http.ResponseWriter, r *http.Request) {
 	enableCors(&w)
 
-	listOfFiles := GetListOfFiles("/tmp/")
+	listOfFiles := configuration.GetListOfFiles("/tmp/")
 	filesJson, _ := json.Marshal(listOfFiles)
 
 	fmt.Printf(`{ "files": "%s" }`, string(filesJson))
@@ -76,7 +79,7 @@ func executeCommandHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	fmt.Printf("Recieved the message %s \n", request.Command)
-	output, err := ExecuteCommand(request.Command)
+	output, err := filesystem.ExecuteCommand(request.Command)
 	formattedErr := ""
 	if err != nil {
 		formattedErr = err.Error()
