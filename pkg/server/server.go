@@ -1,4 +1,4 @@
-package main
+package server
 
 import (
 	"encoding/json"
@@ -12,6 +12,7 @@ import (
 	"github.com/OpenSauce/GoVue-File-Server/pkg/filesystem"
 )
 
+
 var (
 	endpointList = []struct {
 		EndpointURL string
@@ -24,9 +25,8 @@ var (
 	}
 )
 
-//Main execution function of the server.
-func main() {
-
+//Start the HTTP Server.
+func Start(doneCh chan struct{}) {
 	for _, endpoint := range endpointList {
 		http.HandleFunc(endpoint.EndpointURL, endpoint.Handler)
 	}

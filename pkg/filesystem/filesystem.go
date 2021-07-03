@@ -42,26 +42,23 @@ func avaliableSpacePercentage(total float64, free float64) float64 {
 }
 
 func ExecuteCommand(command string) (string, error) {
-	if CanRunCommands() {
-		out, err := exec.Command("bash", "-c", command).Output()
-		if err != nil {
-			return "", err
-		}
-
-		output := string(out[:])
-		output = strings.Replace(output, "\n", "\\n", -1)
-		return output, nil
-	} else {
-		return "", errors.New("Command can't be ran on this machine")
+	if !CanRunCommands() {
+		return "", errors.New("command can't be ran on this machine")
 	}
+
+	out, err := exec.Command("bash", "-c", command).Output()
+	if err != nil {
+		return "", err
+	}
+
+	output := string(out[:])
+	output = strings.Replace(output, "\n", "\\n", -1)
+	return output, nil
+
 }
 
 func CanRunCommands() bool {
-	if runtime.GOOS == "windows" {
-		return false
-	} else {
-		return true
-	}
+	return runtime.GOOS != "windows"
 }
 
 func GetHostname() string {

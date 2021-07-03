@@ -13,7 +13,7 @@ func CreateDirectory(path string) {
 
 //Create a file at the given path.
 func CreateFile() {
-
+	
 }
 
 //Walk through the files and append to the array.
@@ -35,9 +35,6 @@ func GetListOfFiles(path string) []string {
 	err := filepath.Walk(path, visit(&files))
 	if err != nil {
 		panic(err)
-	}
-	for _, file := range files {
-		fmt.Println(file)
 	}
 
 	return files
