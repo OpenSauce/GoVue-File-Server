@@ -8,22 +8,20 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/OpenSauce/GoVue-File-Server/pkg/configuration"
 	"github.com/OpenSauce/GoVue-File-Server/pkg/filesystem"
 )
 
+type endpoint struct {
+	EndpointURL string
+	Handler     func(http.ResponseWriter, *http.Request)
+}
 
-var (
-	endpointList = []struct {
-		EndpointURL string
-		Handler     func(http.ResponseWriter, *http.Request)
-	}{
-		{EndpointURL: "/api/avaliablespace", Handler: avaliablespaceHandler},
-		{EndpointURL: "/api/executecommand", Handler: executeCommandHandler},
-		{EndpointURL: "/api/upload", Handler: uploadHandler},
-		{EndpointURL: "/api/getfiles", Handler: getFileHandler},
-	}
-)
+var endpointList = []endpoint{
+	{EndpointURL: "/api/avaliablespace", Handler: avaliablespaceHandler},
+	{EndpointURL: "/api/executecommand", Handler: executeCommandHandler},
+	{EndpointURL: "/api/upload", Handler: uploadHandler},
+	{EndpointURL: "/api/getfiles", Handler: getFileHandler},
+}
 
 //Start the HTTP Server.
 func Start(doneCh chan struct{}) {
@@ -34,7 +32,7 @@ func Start(doneCh chan struct{}) {
 	fs := http.FileServer(http.Dir("../frontend/dist/"))
 	http.Handle("/", fs)
 
-	fmt.Println("Server listening on port 8080")
+	log.Println("Server listening on port 8080")
 	log.Panic(
 		http.ListenAndServe(":8080", nil),
 	)
@@ -46,7 +44,7 @@ func avaliablespaceHandler(w http.ResponseWriter, r *http.Request) {
 
 	stats := filesystem.GetHDDStats("/")
 
-	fmt.Printf("Recieved the message %f \n", filesystem.GetHDDStats("/").Percentage)
+	log.Printf("Recieved the message %f \n", filesystem.GetHDDStats("/").Percentage)
 	fmt.Fprintf(w, `{ "avaliablespace": "%f",
 	"totalSpace": "%s",
 	"freeSpace": "%s",
@@ -57,10 +55,10 @@ func avaliablespaceHandler(w http.ResponseWriter, r *http.Request) {
 func getFileHandler(w http.ResponseWriter, r *http.Request) {
 	enableCors(&w)
 
-	listOfFiles := configuration.GetListOfFiles("/tmp/")
+	listOfFiles := filesystem.GetListOfFiles("/tmp/")
 	filesJson, _ := json.Marshal(listOfFiles)
 
-	fmt.Printf(`{ "files": "%s" }`, string(filesJson))
+	log.Printf(`{ "files": "%s" }`, string(filesJson))
 	fmt.Fprintf(w, `{ "files": %s }`, string(filesJson))
 }
 
@@ -78,14 +76,14 @@ func executeCommandHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fmt.Printf("Recieved the message %s \n", request.Command)
+	log.Printf("Recieved the message %s \n", request.Command)
 	output, err := filesystem.ExecuteCommand(request.Command)
 	formattedErr := ""
 	if err != nil {
 		formattedErr = err.Error()
 	}
 
-	fmt.Printf("Got: %s : %s \n", output, formattedErr)
+	log.Printf("Got: %s : %s \n", output, formattedErr)
 	fmt.Fprintf(w, `{ "output": "%s",
 	"error": "%s" }`, output, formattedErr)
 }
@@ -111,7 +109,6 @@ func uploadHandler(w http.ResponseWriter, r *http.Request) {
 
 	for i := range files { // loop through the files one by one
 		file, err := files[i].Open()
-		fmt.Printf("Name: %s", files[i].Filename)
 		if err != nil {
 			fmt.Fprintln(w, err)
 			return
@@ -119,9 +116,8 @@ func uploadHandler(w http.ResponseWriter, r *http.Request) {
 		defer file.Close()
 
 		out, err := os.Create("/tmp/" + files[i].Filename)
-
 		if err != nil {
-			fmt.Printf("Unable to create the file for writing. Check your write access privilege")
+			log.Printf("Unable to create the file for writing. Check your write access privilege")
 			return
 		}
 		defer out.Close()
@@ -133,8 +129,8 @@ func uploadHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		fmt.Printf("Files uploaded successfully : ")
-		fmt.Printf(files[i].Filename + "\n")
+		log.Printf("Files uploaded successfully : ")
+		log.Printf(files[i].Filename + "\n")
 
 	}
 }
